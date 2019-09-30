@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+        {% block title %}
+        Welcome!
+        {% endblock %}
+
+        {% block body %}
+
+        <h1>Aloitelaatikko</h1>
+        <table class="table table-hover">
+  <thead>
+        <tr>
+      <th >ID</th>
+      <th>Aihe</th>
+      <th>Kuvaus</th>
+      <th>Kirjauspäivämäärä</th>
+        <th>Etunimi</th>
+        <th>Sukunimi</th>
+        <th>Email</th>
+     <th>Toiminnot</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for aloite in aloitteet %}
+    <tr>
+      <th>{{ aloite.id }}</th>
+      <td>{{ aloite.aihe }}</td>
+      <td>{{ aloite.kuvaus }}</td>
+      <td>{{ aloite.kirjauspvm }}</td>
+      <td>{{aloite.etunimi }}</td>
+            <td>{{aloite.sukunimi }}</td>
+      <td>{{aloite.email }}</td>
+
+      <td>
+      <a href="#" class="btn btn-dark">Nayta</a>
+      <a href="#" class="btn btn-success">Muokkaa</a>
+      <button class="btn btn-danger">Poista</button>
+
+
+     </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+        {% endblock %}
+

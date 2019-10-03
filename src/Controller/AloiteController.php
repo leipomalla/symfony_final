@@ -2,7 +2,8 @@
 
 namespace App\Controller;
 
-use App\Form\AloiteFormType;
+use App\Entity\Aloite;
+//use App\Form\AloiteFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,71 +11,65 @@ use Symfony\Component\Routing\Annotation\Route;
 class AloiteController extends AbstractController {
 
     /**
-     * @Route("/linkki", name="linkki_lista")
+     * @Route("/pelote", name="pelote_lista")
      */
-
     public function index() {
-        // Hakee kaikki linkit tietokannasta
-        $linkit = $this->getDoctrine()->getRepository(Aloite::class)->findAll();
+        // Hakee kaikki aloitteet tietokannasta
+        $aloitteet = $this->getDoctrine()->getRepository(Aloite::class)->findAll();
 
-//Pyydetään näkymää näyttämään kaikki linkit
-        return $this->render('aloite/index.html.twig', ['aloitteet' => $aloitteet]);
+        // Pyydetään näkymää näyttämään kaikki aloitteet
+        return $this->render('Aloite/index.html.twig', [
+            'aloitteet' => $aloitteet,
+        ]);
     }
 
     /**
-     * @Route("/linkki/uusi", name="linkki_uusi")
+     * @Route("/pelote/uusi", name="pelote_uusi")
      */
     public function uusi(Request $request) {
-        //luodaan linkki-olio
+        // Luodaan aloite-olio
         $aloite = new Aloite();
 
-        //luodaan lomake
         $form = $this->createForm(
             LinkkiFormType::class,
             $linkki, [
-                'action' => $this->generateURL('linkki_uusi'),
                 'attr' => ['class' => 'form-signin'],
             ]
         );
-
-        //käsitellään lomakkeelta tulleet tiedot ja talletetaan tietokantaan
+        //lomakkeen käsittely
         $form->handleRequest($request);
+        //Painettiinko lähetä nappia
         if ($form->isSubmitted()) {
-            //Talletetaan lomaketiedot muuttujaan
-            $linkki = $form->getData();
-
-            //Talletetaan tietokantaan
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($linkki);
-            $entityManager->flush();
-
-            //Kutsutaan index-kontrolleria
-            return $this->redirectToRoute('linkkilista');
+            //if true , käsitellään lomaketiedot
+            // var_dump($henkilo);
+            $aloite = $form->getData();
+            // return new Response($henkilo->getEtunimi());
+            // return new JsonResponse((Array)$henkilo);
+            // return $this->redirectToRoute('valmis');
+            return $this->render('lomakeLahetetty.html.twig', [
+                'pvm' => $aloite->getKirjauspvm()]
+            );
         }
-
-        //pyydetään näkymää näyttämään lomake
-        return $this->render('linkki/uusi.html.twig', [
+        //Luo näkymän joka näyttää lomakkeen
+        return $this->render("Aloite/uusi.html.twig", [
             'form1' => $form->createView(),
         ]);
     }
     /**
-     * @Route("/linkki/nayta/{id}", name="linkki_nayta")
-     */
-    public function nayta($id) {
-        $linkki = $this->getDoctrine()->getRepository(Linkki::class)->find($id);
-        return $this->render('linkki/nayta.html.twig');
-    }
-    /**
-     * @Route("/linkki/muokkaa/{id}", name="linkki_muokkaa")
-     */
-    public function muokkaa(request $request, $id) {
-        return $this->render('linkki/muokkaa.html.twig');
-    }
-    /**
-     * @Route("/linkki/poista/{id}", name="linkki_poist")
+     * @Route("/pelote/poista/{id}", name="pelote_poista")
      */
     public function poista(Request $request, $id) {
-        return $this->render('linkki/poista.html.twig');
-    }
 
+        // Luo linkki-olion ja palauttaa sen tiedoilla täytettynä.
+        $aloite = $this->getDoctrine()->getRepository(Aloite::class)->find($id);
+
+        // Poistetaan linkki tietokannasta
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($aloite);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('pelote_lista');
+
+        return $this->render('Aloite/poista.html.twig');
+    }
 }

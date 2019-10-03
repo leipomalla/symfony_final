@@ -7,8 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AloiteRepository")
  */
-class Aloite
-{
+class Aloite {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -46,84 +45,65 @@ class Aloite
      */
     private $email;
 
-    public function setKirjauspvm(\DateTimeInterface $args) {
-        $this->kirjauspvm = $args;
-    }
-    public function getKirjauspvm() {
-        return $this->kirjauspvm;
-    }
-    public function getId(): ?int
-    {
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getAihe(): ?string
-    {
+    public function getAihe(): ?string {
         return $this->aihe;
     }
 
-    public function setAihe(string $aihe): self
-    {
+    public function setAihe(string $aihe): self {
         $this->aihe = $aihe;
 
         return $this;
     }
 
-    public function getKuvaus(): ?string
-    {
+    public function getKuvaus(): ?string {
         return $this->kuvaus;
     }
 
-    public function setKuvaus(string $kuvaus): self
-    {
+    public function setKuvaus(string $kuvaus): self {
         $this->kuvaus = $kuvaus;
 
         return $this;
     }
 
-    public function getKirjauspvm(): ?string
-    {
+    public function getKirjauspvm(): ?string {
         return $this->kirjauspvm;
     }
 
-    public function setKirjauspvm(string $kirjauspvm): self
-    {
+    public function setKirjauspvm(string $kirjauspvm): self {
         $this->kirjauspvm = $kirjauspvm;
 
         return $this;
     }
 
-    public function getEtunimi(): ?string
-    {
+    public function getEtunimi(): ?string {
         return $this->etunimi;
     }
 
-    public function setEtunimi(string $etunimi): self
-    {
+    public function setEtunimi(string $etunimi): self {
         $this->etunimi = $etunimi;
 
         return $this;
     }
 
-    public function getSukunimi(): ?string
-    {
+    public function getSukunimi(): ?string {
         return $this->sukunimi;
     }
 
-    public function setSukunimi(string $sukunimi): self
-    {
+    public function setSukunimi(string $sukunimi): self {
         $this->sukunimi = $sukunimi;
 
         return $this;
     }
 
-    public function getEmail(): ?string
-    {
+    public function getEmail(): ?string {
         return $this->email;
     }
 
-    public function setEmail(string $email): self
-    {
+    public function setEmail(string $email): self {
         $this->email = $email;
 
         return $this;

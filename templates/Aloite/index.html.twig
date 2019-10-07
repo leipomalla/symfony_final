@@ -32,8 +32,8 @@
       <td>{{aloite.email }}</td>
 
       <td>
-      <a href="#" class="btn btn-dark">Nayta</a>
-      <a href="#" class="btn btn-success">Muokkaa</a>
+      <a href="{{ path('pelote_nayta', {id: aloite.id}) }}" class="btn btn-dark">Nayta</a>
+      <a href="{{ path('pelote_muokkaa', {id: aloite.id}) }}" class="btn btn-success">Muokkaa</a>
       <button poista-linkki="{{ aloite.id }}" class="btn btn-danger poista-linkki">Poista</button>
 
 

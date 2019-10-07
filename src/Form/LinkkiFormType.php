@@ -13,8 +13,8 @@ class LinkkiFormType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('Aihe', TextType::class, ['label' => 'Aloitteen aihe!'])
-            ->add('Kuvaus', TextType::class, ['label' => 'Kirjoita aloitteesi!'])
+            ->add('Aihe', TextType::class, ['label' => 'Aloitteen aihe', 'attr' => ['size' => '50']])
+            ->add('Kuvaus', TextType::class, ['label' => 'Kirjoita aloitteesi', 'attr' => ['size' => '75']])
             ->add('Etunimi', null, ['required' => false])
             ->add('Sukunimi', TextType::class)
             ->add('Email', TextType::class)

@@ -54,6 +54,46 @@ class AloiteController extends AbstractController {
             'form1' => $form->createView(),
         ]);
     }
+    /**
+     * @Route("/pelote/nayta/{id}", name="pelote_nayta")
+     */
+    public function nayta($id) {
+        $aloite = $this->getDoctrine()->getRepository(Aloite::class)->find($id);
+        return $this->render('Aloite/nayta.html.twig', ['aloite' => $aloite,
+        ]
+        );
+    }
+    /**
+     * @Route("/pelote/muokkaa/{id}", name="pelote_muokkaa" )
+     */
+    public function muokkaa(Request $request, $id) {
+        $aloite = $this->getDoctrine()->getRepository(Aloite::class)->find($id);
+
+        $form = $this->createForm(
+            LinkkiFormType::class,
+            $aloite, [
+                'attr' => ['class' => 'form-signin'],
+            ]
+        );
+
+        // Käsitellään lomakkeelta tulleet tiedot ja talletetaan tietokantaan
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            // Talletetaan lomaketiedot muuttujaan
+            $aloite = $form->getData();
+
+            // Talletetaan tietokantaan
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+
+            // Kutsutaan index-kontrolleria
+            return $this->redirectToRoute('pelote_lista');
+        }
+
+        return $this->render('Aloite/muokkaa.html.twig', [
+            'form1' => $form->createView(),
+        ]);
+    }
 
     /**
      * @Route("/pelote/poista/{id}", name="pelote_poista")

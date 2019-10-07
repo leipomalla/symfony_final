@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Aloite{% endblock %}
+
+ {% block body %}
+
+    <h1>Aloitteen  tiedot</h1>
+    <table class="table table-hover">
+    <thead>
+        <tr>
+        <th>Aloitteen numero</th>
+        <th>Aihe</th>
+        <th>Kuvaus</th>
+        <th>Aloite annettu</th>
+        <th>Etunimi</th>
+        <th>Sukunimi</th>
+        <th>Email</th>
+        <th>Toiminnot</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <th>{{ aloite.id }}</th>
+        <th>{{ aloite.aihe }}</th>
+        <th>{{ aloite.kuvaus }}</th>
+        <td>{{ aloite.kirjauspvm }}</td>
+        <td>{{ aloite.etunimi }}</td>
+        <td>{{ aloite.sukunimi }}</td>
+        <td>{{ aloite.email }}</td>
+
+        <td>
+          <a href="{{ path('pelote_muokkaa', {id: aloite.id}) }}" class="btn btn-success">Muokkaa</a>
+      <button poista-linkki="{{ aloite.id }}" class="btn btn-danger poista-linkki">Poista</button>
+        </td>
+        </tr>               
+    </tbody>    
+</table> 
+ 
+ {% endblock %}
+
+ {% block javascripts %}
+    {{ parent() }}
+    <script src="../../JS/index.js"></script>
+{% endblock %}
